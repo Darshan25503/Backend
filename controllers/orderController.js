@@ -113,3 +113,23 @@ exports.fetchAllOrdersController = async (req, res) => {
     });
   }
 };
+
+//fetching all orders of a citycenter of a particular company
+
+exports.fetchOrderDestinationController = async (req, res) => {
+  try {
+    const { did } = req.params;
+    const destinationOrders = await Order.find({ destinationId: did });
+    res.status(200).json({
+      success: true,
+      message: "Orders Fetched",
+      destinationOrders,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error in fetching orders",
+    });
+  }
+};
