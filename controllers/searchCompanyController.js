@@ -53,3 +53,22 @@ exports.fetchUsersController = async (req, res) => {
     });
   }
 };
+
+//fetch all companies
+
+exports.fetchCompanyController = async (req, res) => {
+  try {
+    const companies = await company.find();
+    res.status(200).json({
+      success: true,
+      message: "Companies Fetched successfully",
+      companies,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: true,
+      message: "Internal server error in fetching companies",
+    });
+  }
+};
