@@ -1,5 +1,6 @@
 const company = require("../models/companyModel");
 const Distance = require("pincode-distance-calculator");
+const User = require("../models/userModel");
 
 exports.companyListingController = async (req, res) => {
   try {
@@ -30,6 +31,25 @@ exports.companyListingController = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Internal Server Error in Fetching Companies",
+    });
+  }
+};
+
+//fetch all users controller
+
+exports.fetchUsersController = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({
+      success: true,
+      message: "Users Fetched Successfully",
+      users,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error in Fetching users",
     });
   }
 };
