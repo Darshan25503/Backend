@@ -102,3 +102,38 @@ exports.companyLoginController = async (req, res) => {
     });
   }
 };
+
+//company rating
+
+exports.companyRatingController = async (req, res) => {
+  try {
+    const companyId = req.params.companyId;
+    const { rating, comment } = req.body;
+    // Find the company by its ID
+    const company = await Company.findById(companyId);
+
+    if (reviews.length === 0) {
+      return 0; // If there are no reviews yet, return 0
+    }
+
+    let totalRating = 0;
+    reviews.forEach((review) => {
+      totalRating += review.rating;
+    });
+
+    const avgRating = totalRating / reviews.length;
+    // Add the new review
+    company.reviews.push({ rating, comment });
+    company.avgRating = avgRating;
+    // Save the company
+    await company.save();
+
+    res.status(200).json({ message: "Rating added successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error in updating rating",
+    });
+  }
+};

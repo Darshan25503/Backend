@@ -47,6 +47,20 @@ const companySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  reviews: [
+    {
+      rating: {
+        type: Number,
+      },
+      comment: {
+        type: String,
+      },
+    },
+  ],
+  avgRating: {
+    type: Number,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model("company", companySchema);
