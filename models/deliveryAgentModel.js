@@ -13,6 +13,10 @@ const deliveryAgentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: Number,
+    required: true,
+  },
   cityCenter: {
     type: mongoose.ObjectId,
     ref: "citycenter",
