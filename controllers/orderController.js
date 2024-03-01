@@ -133,3 +133,23 @@ exports.fetchOrderDestinationController = async (req, res) => {
     });
   }
 };
+
+//city center order contorller
+
+exports.cityCenterOrderController = async (req, res) => {
+  try {
+    const { ccid } = req.params;
+    const orders = await Order.find({ "reached.centerId": ccid });
+    res.status(200).json({
+      success: true,
+      message: "Orders Fetched Successfully",
+      orders,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error in fetching orders",
+    });
+  }
+};
